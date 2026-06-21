@@ -1,7 +1,6 @@
-
 import PropTypes from 'prop-types';
 
-function Card(props){
+function GalleryCard(props){
     var img="./assets/react.svg";
     var title="React";
     var text="Is what I am learning.";
@@ -9,17 +8,12 @@ function Card(props){
     return(
         <div className="card">
             <img src={props.imageAddress}></img>
-            <h2>{props.title}</h2>
-            <p>{props.text}</p>
-
         </div>
     );
 }
 
-Card.propTypes = {
-    imageAddress: PropTypes.string,
-    title: PropTypes.string,
-    text: PropTypes.string
+GalleryCard.propTypes = {
+    imageAddress: PropTypes.string
 }
 
-export default Card
+export default GalleryCard
