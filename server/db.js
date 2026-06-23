@@ -1,10 +1,14 @@
 
-import { DatabaseSync } from 'node:sqlite';
+const { DatabaseSync } = require('node:sqlite');
 
-export function openDB(){
-    dataBase = new DatabaseSync('./dogs.db');
+function openDB(){
+    const dataBase = new DatabaseSync('./dogs.db');
     
-    if (database == null){
+    //Checks if table exists, tableExists is a boolean assigned from a comparison
+    const query = "SELECT name FROM sqlite_master WHERE type='table' AND name=?";
+    const tableExists = dataBase.prepare(query).get('images') !== undefined;
+
+    if (tableExists == false){
         createDB(dataBase);
     }
 
@@ -22,15 +26,15 @@ function createDB(dataBaseParam){
     dataBaseParam.exec('CREATE TABLE images(id INTEGER PRIMARY KEY, imageAddress TEXT) STRICT');
 
     // Create a prepared statement to insert data into the database.
-    const insert = database.prepare('INSERT INTO images (id, imageAddress) VALUES (?, ?)');
+    const insert = dataBaseParam.prepare('INSERT INTO images (id, imageAddress) VALUES (?, ?)');
 
     // Execute the prepared statement with bound values.
-    insert.run(null, './assets/Alaskan-Malamute.webp');
-    insert.run(null, './assets/Untitled.jpg');
+    insert.run(null, './images/Alaskan-Malamute.webp');
+    insert.run(null, './images/Untitled.jpg');
 
 }
 
-export function getImageAddresses(dataBaseParam){
+function getImageAddresses(dataBaseParam){
     if(dataBaseParam.isOpen == false){
         dataBaseParam.open();
     }
@@ -39,16 +43,25 @@ export function getImageAddresses(dataBaseParam){
     const query = dataBaseParam.prepare('SELECT * FROM images');
 
     // Execute the prepared statement and return the result set object.
-    return addressesList = query.all();
+    const addressesList = query.all();
+
+    return addressesList;
 }
 
-export function closeDB(dataBaseParam){
+function closeDB(dataBaseParam){
     if(dataBaseParam.isOpen == true){
         dataBaseParam.close();
         return true;
     }
     return false;
 }
+
+module.exports = {
+  openDB,
+  getImageAddresses,
+  closeDB,
+};
+
 // Execute SQL statements from strings.
 //database.exec(`
 //  CREATE TABLE images(

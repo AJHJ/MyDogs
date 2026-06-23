@@ -1,13 +1,11 @@
 import PropTypes from 'prop-types';
 
 function GalleryCard(props){
-    var img="./assets/react.svg";
-    var title="React";
-    var text="Is what I am learning.";
 
     return(
         <div className="card">
-            <img src={props.imageAddress}></img>
+            <img src={"http://localhost:3000/images/"+props.imageAddress}></img>
+
         </div>
     );
 }
