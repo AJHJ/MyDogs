@@ -29,12 +29,12 @@ function createDB(dataBaseParam){
     const insert = dataBaseParam.prepare('INSERT INTO images (id, imageAddress) VALUES (?, ?)');
 
     // Execute the prepared statement with bound values.
-    insert.run(null, './images/Alaskan-Malamute.webp');
-    insert.run(null, './images/Untitled.jpg');
+    insert.run(null, 'Alaskan-Malamute.webp');
+    insert.run(null, 'Untitled.jpg');
 
 }
 
-function getImageAddresses(dataBaseParam){
+function getImagesURL(dataBaseParam){
     if(dataBaseParam.isOpen == false){
         dataBaseParam.open();
     }
@@ -43,9 +43,9 @@ function getImageAddresses(dataBaseParam){
     const query = dataBaseParam.prepare('SELECT * FROM images');
 
     // Execute the prepared statement and return the result set object.
-    const addressesList = query.all();
+    const urlList = query.all();
 
-    return addressesList;
+    return urlList;
 }
 
 function closeDB(dataBaseParam){
@@ -58,7 +58,7 @@ function closeDB(dataBaseParam){
 
 module.exports = {
   openDB,
-  getImageAddresses,
+  getImagesURL,
   closeDB,
 };
 

@@ -4,14 +4,14 @@ function GalleryCard(props){
 
     return(
         <div className="card">
-            <img src={"http://localhost:3000/images/"+props.imageAddress}></img>
+            <img src={"http://localhost:3000/public/images/"+props.imageURL} alt="Not Found"></img>
 
         </div>
     );
 }
 
 GalleryCard.propTypes = {
-    imageAddress: PropTypes.string
+    imageURL: PropTypes.string
 }
 
 export default GalleryCard
