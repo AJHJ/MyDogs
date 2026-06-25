@@ -3,15 +3,14 @@ import { PageContext } from "./Contexts.jsx";
 
 function Header(){
 
-    const updateBodyContent = useContext(PageContext);
-    console.log(updateBodyContent);
+    const {bodyContent, setBodyContent} = useContext(PageContext);
 
     return(
 
         <header>
             <ul className="navbar">
-                <li className="navbar-item" ><button onClick={() => updateBodyContent("Home")}>Home</button></li>
-                <li className="navbar-item" ><button onClick={() => updateBodyContent("Gallery")}>Gallery</button></li>
+                <li className="navbar-item" ><button onClick={() => setBodyContent("Home")}>Home</button></li>
+                <li className="navbar-item" ><button onClick={() => setBodyContent("Gallery")}>Gallery</button></li>
                 <li className="navbar-item" ><button >Know the babies</button></li>
             </ul>
         </header>

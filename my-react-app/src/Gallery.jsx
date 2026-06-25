@@ -1,6 +1,4 @@
 import GalleryCard from './GalleryCard.jsx';
-import Header from './Header.jsx';
-import Footer from './Footer.jsx';
 import { useEffect, useState } from 'react';
 
 
@@ -59,12 +57,9 @@ function Gallery(){
     return(
         //Here goes the HTML inside the body tag, the body tag isn't used here because it is already in the INDEX.HTML file
         <>
-            <Header></Header>
-            {
-                imagesURL.map((url) => (<GalleryCard key={url.id} imageURL={url.imageAddress}></GalleryCard>))
-            }
-            <p>Number of rows in result set: {imagesURL.length}</p>
-            <Footer></Footer>
+          {
+            imagesURL.map((url) => (<GalleryCard key={url.id} imageURL={url.imageAddress}></GalleryCard>))
+          }
         </>
         
     );

@@ -1,6 +1,4 @@
-import { createContext } from 'react';
+import { createContext, useState } from 'react';
 
 // Create context with state value and updater function placeholder
-export const PageContext = createContext({
-  updateBodyContent: () => {},
-});
+export const PageContext = createContext({bodyContent: "", setBodyContent: () => {}});
