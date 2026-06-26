@@ -56,11 +56,11 @@ function Gallery(){
 
     return(
         //Here goes the HTML inside the body tag, the body tag isn't used here because it is already in the INDEX.HTML file
-        <>
+        <div className="gallery">
           {
             imagesURL.map((url) => (<GalleryCard key={url.id} imageURL={url.imageAddress}></GalleryCard>))
           }
-        </>
+        </div>
         
     );
 }

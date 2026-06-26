@@ -19,13 +19,16 @@ function Content(){
 
     return(
         //Here goes the HTML inside the body tag, the body tag isn't used here because it is already in the INDEX.HTML file
-        <>
+        <div className="bodyDiv">
             <PageContext.Provider value={{bodyContent, setBodyContent}}>
                 <Header></Header>
             </PageContext.Provider>
-            {contentComp}
+            <div className="content">
+                {contentComp}
+            </div>
+            
             <Footer></Footer>
-        </>
+        </div>
         
     );
 }

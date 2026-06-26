@@ -9,9 +9,9 @@ function Header(){
 
         <header>
             <ul className="navbar">
-                <li className="navbar-item" ><button onClick={() => setBodyContent("Home")}>Home</button></li>
-                <li className="navbar-item" ><button onClick={() => setBodyContent("Gallery")}>Gallery</button></li>
-                <li className="navbar-item" ><button >Know the babies</button></li>
+                <li ><button onClick={() => setBodyContent("Home")}>Home</button></li>
+                <li ><button onClick={() => setBodyContent("Gallery")}>Gallery</button></li>
+                <li ><button >Know the babies</button></li>
             </ul>
         </header>
     );
