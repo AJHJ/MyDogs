@@ -8,7 +8,7 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "start": "dist/index.html"
+    "start": "open dist/index.html"
   },
   "dependencies": {
     "prop-types": "^15.8.1",
