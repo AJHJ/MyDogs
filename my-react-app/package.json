@@ -9,6 +9,7 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "start": "http-server dist/index.html"
+    
   },
   "dependencies": {
     "prop-types": "^15.8.1",
