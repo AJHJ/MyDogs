@@ -8,6 +8,7 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
+    "serve": "serve dist",
     "start": "open dist/index.html"
   },
   "dependencies": {
