@@ -20,7 +20,7 @@ function Gallery(){
         const fetchData = async () => {
       try {
         setLoading(true);
-        const response = await fetch('http://localhost:3000/imagesURL', {
+        const response = await fetch('https://mydogs.onrender.com/imagesURL', {
           signal: controller.signal // Pass the abort signal to fetch
         });
         
