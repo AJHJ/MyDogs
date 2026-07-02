@@ -16,6 +16,8 @@ app.use(
     })
 );
 
+app.use(express.static("dist"));
+
 //Route
 app.get("/", (req, res) => {
     res.send("Welcome to the node server");
