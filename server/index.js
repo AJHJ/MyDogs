@@ -12,7 +12,7 @@ const PORT = 3000;
 
 app.use(
     cors({
-        origin: ["http://localhost:3000"]
+        origin: ["http://https://mydogs.onrender.com/:3000"]
     })
 );
 
