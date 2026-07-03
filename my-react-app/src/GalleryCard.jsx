@@ -4,7 +4,7 @@ function GalleryCard(props){
 
     return(
         <div className="card">
-            <img src={"https://mydogs.onrender.com/public/images/"+props.imageURL} alt="Not Found"></img>
+            <img src={"/images/"+props.imageURL} alt="Not Found"></img>
 
         </div>
     );

@@ -77,13 +77,14 @@ body {
   height: auto;
   width: 100%;
   padding: 40px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
 }
 
 ul {
   list-style-type: none;
 }
-
-
 
 h1,
 h2 {
@@ -101,6 +102,7 @@ h1 {
     margin: 20px 0;
   }
 }
+
 h2 {
   font-size: 24px;
   line-height: 118%;
@@ -131,15 +133,18 @@ p {
     margin: 10px;
     text-align: center;
     max-width: 250px;
+    max-height: 250px;
+    height: fit-content;
     display: flex;
     flex-direction: column;
+    background-color: azure;
 }
 
-.card .card-image{
-    max-width: 60%;
-    height: auto;
+.card img{
+    max-width: 200px;
+    max-height: 200px;
     border-radius: 0px;
-    margin-bottom: 10px;
+    margin-bottom: 0px;
 }
 
 /* code {

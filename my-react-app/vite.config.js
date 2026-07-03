@@ -7,7 +7,9 @@ export default defineConfig({
   server: {
     // 1. Array of specific allowed hostnames
     allowedHosts: [
-      'mydogs.onrender.com',
     ],
+    proxy: {'/imagesURL': 'http://localhost:3000',
+            '/images' : 'http://localhost:3000'
+    }
   }
 })

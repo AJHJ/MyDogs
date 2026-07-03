@@ -12,7 +12,7 @@ const PORT = 3000;
 
 app.use(
     cors({
-        origin: ["https://mydogs.onrender.com/:3000"]
+        origin: ["http://localhost:5173"]
     })
 );
 
@@ -34,7 +34,7 @@ app.get("/imagesURL", (req, res) => {
 });
 
 // Serve files from the "public/images" directory under the "/images" route URL
-app.use('/public/images', express.static(path.join(__dirname, 'public/images')));
+app.use('/images', express.static(path.join(__dirname, 'public/images')));
 
 
 app.listen(PORT, () => {

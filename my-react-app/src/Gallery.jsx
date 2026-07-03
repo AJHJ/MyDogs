@@ -1,5 +1,5 @@
 import GalleryCard from './GalleryCard.jsx';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 
 function Gallery(){
@@ -7,20 +7,18 @@ function Gallery(){
     //This is a state variable
     const [imagesURL, setImagesURL] = useState([]);
 
-
-    const [data, setData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
     useEffect(() => {
         // 1. Create an instance of AbortController to cancel requests if component unmounts
         const controller = new AbortController();
-    
+
         // 2. Define the inner async function
         const fetchData = async () => {
       try {
         setLoading(true);
-        const response = await fetch('https://mydogs.onrender.com/imagesURL', {
+        const response = await fetch('/imagesURL', {
           signal: controller.signal // Pass the abort signal to fetch
         });
         
@@ -33,10 +31,14 @@ function Gallery(){
         console.log(result);
 
       } catch (err) {
+        
         // Only update state if the error wasn't triggered by aborting the request
         if (err.name !== 'AbortError') {
           setError(err.message);
+        }else{
+          console.log("Fetch successfully aborted safely");
         }
+        
       } finally {
         if (!controller.signal.aborted) {
           setLoading(false);
