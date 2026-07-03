@@ -11,7 +11,7 @@ function GalleryCard(props){
                 Your browser does not support the video tag.
                 </video>);
         }else{
-        setComp(<img src={"/images/"+props.imageURL} alt="Not Found"></img>);
+            setComp(<img src={"/images/"+props.imageURL} alt="Not Found"></img>);
         }
 
     }, []);
