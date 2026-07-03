@@ -147,6 +147,13 @@ p {
     margin-bottom: 0px;
 }
 
+video {
+  width: 100%;
+  max-width: 200px; /* Sets your maximum size constraint */
+  height: auto;     /* Maintains your video's aspect ratio */
+  max-height: 200px;
+}
+
 /* code {
   font-size: 15px;
   line-height: 135%;
