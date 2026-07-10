@@ -1,20 +1,41 @@
 //import { openDB, getImageAddresses, closeDB } from './db.js';
 
-const { openDB, getImagesURL, closeDB } = require('./db.js');
+const { openDB, getImagesURL, closeDB, signUp, logIn } = require('./db.js');
 const path = require('path');
 
+
+require('dotenv').config();
 const express = require("express");
 const cors = require("cors");
-
+const http = require('http');
+const https = require('https');
 const app = express();
-const PORT = 3000;
+const HTTP_PORT = 3000;
+const HTTPS_PORT = 3001;
 
+
+// This session function automatically catches incoming requests and checks if there is a valid session
+app.use(session({
+  secret: process.env.SERVER_SECRET, // Secret key used to sign the cookie
+  resave: false,                    // Avoids resaving unmodified sessions
+  saveUninitialized: false,         // Complies with privacy laws; reduces server usage
+  cookie: {
+    httpOnly: true,                 // Shields cookie from client-side JavaScript (XSS protection)
+    secure: false,                  // Set to true in production (requires HTTPS)
+    //maxAge: 1000 * 60 * 60 * 24     // Session cookie lifespan in milliseconds (1 day)
+  }
+}));
 
 app.use(
     cors({
         origin: ["http://localhost:5173"]
     })
 );
+
+const httpsOptions = {
+  key: fs.readFileSync('key.pem'),
+  cert: fs.readFileSync('cert.pem'),
+};
 
 app.use(express.static("dist"));
 
@@ -36,9 +57,40 @@ app.get("/imagesURL", (req, res) => {
 // Serve files from the "public/images" directory under the "/images" route URL
 app.use('/images', express.static(path.join(__dirname, 'public/images')));
 
+app.get('/signup', (req, res) => res.render('signup', { error: null }));
+app.post('/signup', async (req, res) => {
+    const { username, password, repeatpassword } = req.body;
+    const database = openDB();
+    const signUpRes = signUp(database, username, password, repeatpassword);
+    const result = closeDB(database);
 
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
+    //sends back true or false
+    res.send(signUpRes);
+});
 
+app.get('/login', (req, res) => res.render('login', { error: null }));
+app.post('/login', async (req, res) => {
+    const { username, password} = req.body;
+    const database = openDB();
+    const logInRes = logIn(database, username, password);
+    if(logInRes == true){
+        req.session.username = username;
+    }
+    const result = closeDB(database);
+
+    //sends back true or false
+    res.send(logInRes);
+});
+
+app.get('/logout', (req, res) => req.session.destroy(() => res.redirect('/login')));
+
+// HTTP Server
+http.createServer(app).listen(HTTP_PORT, () => {
+    console.log(`HTTP Server running on http://localhost:${HTTP_PORT}`);
+});
+
+// HTTPS Server
+https.createServer(httpsOptions, app).listen(HTTPS_PORT, () => {
+    console.log(`HTTPS Server running on https://localhost:${HTTPS_PORT}`);
 });
 

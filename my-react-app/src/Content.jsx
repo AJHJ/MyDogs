@@ -3,6 +3,8 @@ import GalleryCard from './GalleryCard.jsx';
 import Gallery from './Gallery.jsx';
 import Header from './Header.jsx';
 import Footer from './Footer.jsx';
+import Login from './Login.jsx';
+import Signup from './Signup.jsx';
 import { PageContext } from './Contexts.jsx';
 import { useEffect, useState, createContext } from 'react';
 
@@ -15,6 +17,10 @@ function Content(){
         contentComp = <p>This is a site dedicated to show everyone how perfect and worthy of worship my dogs are.</p>;
     }else if(bodyContent=="Gallery"){
         contentComp = <Gallery></Gallery>;
+    }else if(bodyContent=="Signup"){
+        contentComp = <Signup></Signup>;
+    }else if(bodyContent=="Login"){
+        contentComp = <Login></Login>;
     }
 
     return(

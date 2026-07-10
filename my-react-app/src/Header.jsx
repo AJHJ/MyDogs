@@ -11,7 +11,7 @@ function Header(){
             <ul className="navbar">
                 <li ><button onClick={() => setBodyContent("Home")}>Home</button></li>
                 <li ><button onClick={() => setBodyContent("Gallery")}>Gallery</button></li>
-                <li ><button >Know the babies</button></li>
+                <li ><button onClick={() => setBodyContent("Login")}>Login</button></li>
             </ul>
         </header>
     );

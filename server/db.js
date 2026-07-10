@@ -1,5 +1,6 @@
 
 const { DatabaseSync } = require('node:sqlite');
+const bcrypt = require('bcryptjs');
 
 function openDB(){
     const dataBase = new DatabaseSync('./dogs.db');
@@ -48,6 +49,50 @@ function getImagesURL(dataBaseParam){
     return urlList;
 }
 
+function signUp(dataBaseParam, username, password, rpassword){
+    if(dataBaseParam.isOpen == false){
+        dataBaseParam.open();
+    }
+
+    if(password !== rpassword){
+        return false;
+    }
+
+    const checkQuery = dataBaseParam.prepare('SELECT * FROM users WHERE username = ?');
+    checkQuery.all(username);
+
+    if(checkQuery.length > 0){
+        return false;
+    }
+    
+    const hash = await bcrypt.hash(password, 10);
+
+    const insert = dataBaseParam.prepare('INSERT INTO users (id, username, password) VALUES (?, ?, ?)');
+
+    // Execute the prepared statement with bound values.
+    insert.run(null, username, hash);
+
+    if(insert.lastInsertRowid > 0){
+        return true;
+    }else{
+        return false;
+    }
+}
+
+function logIn(dataBaseParam, username, password){
+    if(dataBaseParam.isOpen == false){
+        dataBaseParam.open();
+    }
+
+    const selectQuery = dataBaseParam.prepare('SELECT * FROM users WHERE username = ?');
+    selectQuery.all(username);
+
+    const matchResult = await bcrypt.compare(selectQuery[0].password);
+    
+    //Returns true or false;
+    return matchResult;
+}
+
 function closeDB(dataBaseParam){
     if(dataBaseParam.isOpen == true){
         dataBaseParam.close();
@@ -60,6 +105,8 @@ module.exports = {
   openDB,
   getImagesURL,
   closeDB,
+  signUp,
+  logIn,
 };
 
 // Execute SQL statements from strings.
