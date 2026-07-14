@@ -20,7 +20,9 @@ function Content(){
     }else if(bodyContent=="Signup"){
         contentComp = <Signup></Signup>;
     }else if(bodyContent=="Login"){
-        contentComp = <Login></Login>;
+        contentComp = <PageContext.Provider value={{bodyContent, setBodyContent}}>
+                <Login></Login>
+            </PageContext.Provider>;
     }
 
     return(

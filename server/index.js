@@ -1,12 +1,15 @@
 //import { openDB, getImageAddresses, closeDB } from './db.js';
 
-const { openDB, getImagesURL, closeDB, signUp, logIn } = require('./db.js');
+//const { openDB, getImagesURL, closeDB, signUp, logIn } = require('./db.js');
+const Database = require('./db.js');
 const path = require('path');
 
 
 require('dotenv').config();
 const express = require("express");
+const session = require('express-session');
 const cors = require("cors");
+const fs = require('node:fs');
 const http = require('http');
 const https = require('https');
 const app = express();
@@ -31,6 +34,8 @@ app.use(
         origin: ["http://localhost:5173"]
     })
 );
+
+app.use(express.json());
 
 const httpsOptions = {
   key: fs.readFileSync('key.pem'),
@@ -59,13 +64,20 @@ app.use('/images', express.static(path.join(__dirname, 'public/images')));
 
 app.get('/signup', (req, res) => res.render('signup', { error: null }));
 app.post('/signup', async (req, res) => {
-    const { username, password, repeatpassword } = req.body;
-    const database = openDB();
-    const signUpRes = signUp(database, username, password, repeatpassword);
-    const result = closeDB(database);
+    console.log(req.body);
+    const username = req.body.username;
+    const password = req.body.password;
+    const repeatpassword = req.body.repeatpassword;
+    const databass = new Database();
+    const signUpRes = await databass.signUp(username, password, repeatpassword);
+    const closeRes = databass.closeDB();
 
-    //sends back true or false
-    res.send(signUpRes);
+    if(signUpRes == true){
+        res.json({ message: 'User created successfully, you can login now.' });
+    }else{
+        res.json({ message: 'Error: Username is already taken or passwords dont match.' });
+    }
+    
 });
 
 app.get('/login', (req, res) => res.render('login', { error: null }));

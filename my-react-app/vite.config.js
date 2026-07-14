@@ -9,7 +9,9 @@ export default defineConfig({
     allowedHosts: [
     ],
     proxy: {'/imagesURL': 'http://localhost:3000',
-            '/images' : 'http://localhost:3000'
+            '/images' : 'http://localhost:3000',
+            '/signup': 'http://localhost:3000',
+            '/login' : 'http://localhost:3000',
     }
   }
 })
