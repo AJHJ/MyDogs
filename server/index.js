@@ -90,11 +90,14 @@ app.post('/login', async (req, res) => {
     }
     const result = closeDB(database);
 
-    //sends back true or false
-    res.send(logInRes);
+    if(logInRes == true){
+        res.json({ isSuccess: true, username: username});
+    }else{
+        res.json({ isSuccess: false});
+    }
 });
 
-app.get('/logout', (req, res) => req.session.destroy(() => res.redirect('/login')));
+app.get('/logout', (req, res) => req.session.destroy(() => res.json({ isSuccess: true}) ));
 
 // HTTP Server
 http.createServer(app).listen(HTTP_PORT, () => {

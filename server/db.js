@@ -85,13 +85,23 @@ class Database{
             this.db.open();
         }
 
-        const selectQuery = this.db.prepare('SELECT * FROM users WHERE username = ?');
-        selectQuery.all(username);
+        if(password !== rpassword){
+            return false;
+        }
 
-        const matchResult = await bcrypt.compare(selectQuery[0].password);
+        const checkQuery = this.db.prepare('SELECT * FROM users WHERE username = ?');
+
+        const checkResult = checkQuery.all(username);
+
+        const isMatch = await bcrypt.compare(password, checkResult[0].password);
+        return isMatch;
+
+        console.log("This is the length of the result of the select: "+checkResult.length);
+        if(checkResult.length > 0){
+            return false;
+        }
     
-        //Returns true or false;
-        return matchResult;
+        return isMatch;
     }
 
     closeDB(){

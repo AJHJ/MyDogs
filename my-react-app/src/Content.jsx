@@ -10,6 +10,8 @@ import { useEffect, useState, createContext } from 'react';
 
 function Content(){
     const [bodyContent, setBodyContent] = useState("Home");
+    const [username, setUsername] = useState("Guest");
+
     let contentComp= <p>This is a site dedicated to show everyone how perfect and worthy of worship my dogs are.</p>;
     
         
@@ -28,7 +30,7 @@ function Content(){
     return(
         //Here goes the HTML inside the body tag, the body tag isn't used here because it is already in the INDEX.HTML file
         <div className="bodyDiv">
-            <PageContext.Provider value={{bodyContent, setBodyContent}}>
+            <PageContext.Provider value={{bodyContent, setBodyContent, username, setUsername}}>
                 <Header></Header>
             </PageContext.Provider>
             <div className="content">
