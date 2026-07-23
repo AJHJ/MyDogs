@@ -1,5 +1,5 @@
 
-import GalleryCard from './GalleryCard.jsx';
+import GalleryManager from './GalleryManager.jsx';
 import Gallery from './Gallery.jsx';
 import Header from './Header.jsx';
 import Footer from './Footer.jsx';
@@ -25,6 +25,8 @@ function Content(){
         contentComp = <PageContext.Provider value={{bodyContent, setBodyContent}}>
                 <Login></Login>
             </PageContext.Provider>;
+    }else if(bodyContent=="GalleryManager"){
+        contentComp = <GalleryManager></GalleryManager>;
     }
 
     return(

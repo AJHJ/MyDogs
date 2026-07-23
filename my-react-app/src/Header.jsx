@@ -53,6 +53,7 @@ function Header(){
             <ul className="navbar">
                 <li ><button onClick={() => setBodyContent("Home")}>Home</button></li>
                 <li ><button onClick={() => setBodyContent("Gallery")}>Gallery</button></li>
+                {username!="Guest" && <li ><button onClick={() => setBodyContent("GalleryManager")}>Gallery</button></li>}
                 <li ><button onClick={logInOut}>{logInOutStr}</button></li>
                 <li ><button >{username}</button></li>
             </ul>
