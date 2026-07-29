@@ -82,13 +82,14 @@ app.post('/signup', async (req, res) => {
 
 app.get('/login', (req, res) => res.render('login', { error: null }));
 app.post('/login', async (req, res) => {
-    const { username, password} = req.body;
-    const database = openDB();
-    const logInRes = logIn(database, username, password);
+    console.log(req.body);
+    const { username, password } = req.body;
+    const database = new Database();
+    const logInRes = database.logIn(username, password);
     if(logInRes == true){
         req.session.username = username;
     }
-    const result = closeDB(database);
+    const result = database.closeDB(database);
 
     if(logInRes == true){
         res.json({ isSuccess: true, username: username});

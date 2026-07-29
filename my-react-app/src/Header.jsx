@@ -7,8 +7,8 @@ function Header(){
     const {username, setUsername} = useContext(PageContext);
 
     //Default values are for logging in
-    const [logInOut, setLogInOut] = useState(() => {setBodyContent("Login")});
-    const [logInOutStr, setLogInOutStr] = useState("Login");
+    const [logInOut, setLogInOut] = useState(<></>);
+    //const [logInOutStr, setLogInOutStr] = useState("Login");
     const [userMenuOptions, setUserMenuOptions] = useState(<></>);
 
 
@@ -17,9 +17,9 @@ function Header(){
         //If the username is not guest then set the button text as logout and set the callback function for loggin out
         if(username != "Guest"){
 
-            setLogInOutStr("Logout");
-
-            setLogInOut(async () => {
+            //setLogInOutStr("Logout");
+            
+            const handleLogOut = async () => {
 
                 try {
                     const response = await fetch("/logout", {
@@ -36,7 +36,7 @@ function Header(){
 
                 if(result.isSuccess == true){
                     setLogInOut(() => setBodyContent("Login"));
-                    setLogInOutStr("Login");
+                    //setLogInOutStr("Login");
                     setUsername("Guest");
                     setUserMenuOptions(<></>);
                 }else{
@@ -49,8 +49,12 @@ function Header(){
                     console.log(error.message);
 
                 }
-            });
+            };
+
+            setLogInOut(<li ><button onClick={handleLogOut}>Logout</button></li>);
             setUserMenuOptions(<li ><button onClick={() => setBodyContent("GalleryManager")}>Gallery</button></li>);
+        }else{
+            setLogInOut(<li ><button onClick={() => setBodyContent("Login")}>Login</button></li>);
         }
     }, [])
     
@@ -62,7 +66,7 @@ function Header(){
                 <li ><button onClick={() => setBodyContent("Home")}>Home</button></li>
                 <li ><button onClick={() => setBodyContent("Gallery")}>Gallery</button></li>
                 {userMenuOptions}
-                <li ><button onClick={logInOut}>{logInOutStr}</button></li>
+                {logInOut}
                 <li ><button >{username}</button></li>
             </ul>
         </header>

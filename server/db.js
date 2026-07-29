@@ -84,11 +84,8 @@ class Database{
         if(this.db.isOpen == false){
             this.db.open();
         }
-
-        if(password !== rpassword){
-            return false;
-        }
-
+        console.log('username = '+username);
+        console.log('password = '+password);
         const checkQuery = this.db.prepare('SELECT * FROM users WHERE username = ?');
 
         const checkResult = checkQuery.all(username);
