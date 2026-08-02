@@ -84,19 +84,16 @@ class Database{
         if(this.db.isOpen == false){
             this.db.open();
         }
-        console.log('username = '+username);
-        console.log('password = '+password);
+    
         const checkQuery = this.db.prepare('SELECT * FROM users WHERE username = ?');
 
         const checkResult = checkQuery.all(username);
 
-        const isMatch = await bcrypt.compare(password, checkResult[0].password);
-        return isMatch;
-
-        console.log("This is the length of the result of the select: "+checkResult.length);
-        if(checkResult.length > 0){
+        if(checkResult.length < 1){
             return false;
         }
+
+        const isMatch = await bcrypt.compare(password, checkResult[0].password);
     
         return isMatch;
     }

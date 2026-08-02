@@ -12,6 +12,7 @@ export default defineConfig({
             '/images' : 'http://localhost:3000',
             '/signup': 'http://localhost:3000',
             '/login' : 'http://localhost:3000',
+            '/logout' : 'http://localhost:3000'
     }
   }
 })

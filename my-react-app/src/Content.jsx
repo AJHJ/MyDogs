@@ -22,7 +22,7 @@ function Content(){
     }else if(bodyContent=="Signup"){
         contentComp = <Signup></Signup>;
     }else if(bodyContent=="Login"){
-        contentComp = <PageContext.Provider value={{bodyContent, setBodyContent}}>
+        contentComp = <PageContext.Provider value={{bodyContent, setBodyContent, username, setUsername}}>
                 <Login></Login>
             </PageContext.Provider>;
     }else if(bodyContent=="GalleryManager"){

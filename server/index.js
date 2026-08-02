@@ -50,9 +50,9 @@ app.get("/", (req, res) => {
 });
 
 app.get("/imagesURL", (req, res) => {
-    const database = openDB();
-    const imagesURL = getImagesURL(database);
-    const result = closeDB(database);
+    const database = new Database();
+    const imagesURL = database.getImagesURL();
+    const result = database.closeDB();
     //const urlArray = [];
         //imagesURL.map(url => urlArray.push(url)
     //);
@@ -85,12 +85,12 @@ app.post('/login', async (req, res) => {
     console.log(req.body);
     const { username, password } = req.body;
     const database = new Database();
-    const logInRes = database.logIn(username, password);
+    const logInRes = await database.logIn(username, password);
     if(logInRes == true){
         req.session.username = username;
     }
-    const result = database.closeDB(database);
-
+    const result = database.closeDB();
+    
     if(logInRes == true){
         res.json({ isSuccess: true, username: username});
     }else{
@@ -99,6 +99,7 @@ app.post('/login', async (req, res) => {
 });
 
 app.get('/logout', (req, res) => req.session.destroy(() => res.json({ isSuccess: true}) ));
+app.post('/logout', (req, res) => req.session.destroy(() => res.json({ isSuccess: true}) ));
 
 // HTTP Server
 http.createServer(app).listen(HTTP_PORT, () => {

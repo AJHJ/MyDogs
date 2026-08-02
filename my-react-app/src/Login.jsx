@@ -21,7 +21,7 @@ function Login(){
       });
 
       const result = await response.json();
-
+      console.log("The result object: "+JSON.stringify(result));
       if (!response.ok) {
         throw new Error(result.message || "Something went wrong.");
       }

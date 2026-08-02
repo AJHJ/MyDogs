@@ -6,7 +6,6 @@ function Gallery(){
 
     //This is a state variable
     const [imagesURL, setImagesURL] = useState([]);
-
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 

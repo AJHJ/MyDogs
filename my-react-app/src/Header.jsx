@@ -35,10 +35,10 @@ function Header(){
                 }
 
                 if(result.isSuccess == true){
-                    setLogInOut(() => setBodyContent("Login"));
+                    //setLogInOut(() => setBodyContent("Login"));
                     //setLogInOutStr("Login");
-                    setUsername("Guest");
                     setUserMenuOptions(<></>);
+                    setUsername("Guest");
                 }else{
                     setLoginResult('Error: Something went wrong.');
                 }
@@ -52,11 +52,11 @@ function Header(){
             };
 
             setLogInOut(<li ><button onClick={handleLogOut}>Logout</button></li>);
-            setUserMenuOptions(<li ><button onClick={() => setBodyContent("GalleryManager")}>Gallery</button></li>);
+            setUserMenuOptions(<li ><button onClick={() => setBodyContent("GalleryManager")}>Gallery Manager</button></li>);
         }else{
             setLogInOut(<li ><button onClick={() => setBodyContent("Login")}>Login</button></li>);
         }
-    }, [])
+    }, [username]);
     
 
     return(
